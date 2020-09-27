@@ -1,7 +1,7 @@
 {
   "name": "@studiobear/snowpack-plugin-mdsvex",
   "version": "0.0.1",
-  "description": "Svelte-friendly MD file via MDSVEX with Snowpack",
+  "description": "Include Svelte-enhanced markdown files via MDSVEX with Snowpack",
   "source": "src/index.ts",
   "main": "dist/index.js",
   "module": "dist/index.modern.js",
