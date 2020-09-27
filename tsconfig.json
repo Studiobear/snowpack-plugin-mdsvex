@@ -1,0 +1,25 @@
+{
+  "exclude": ["node_modules", "dist", "src/__tests__"],
+  "include": ["src/**/*"],
+  "compilerOptions": {
+    "module": "ESNext",
+    "moduleResolution": "node",
+    "target": "ESNext",
+    "resolveJsonModule": true,
+    "lib": ["esnext", "dom"],
+    "types": ["svelte", "jest"],
+    "baseUrl": ".",
+    "paths": {
+      "*": ["../*"]
+    },
+    "sourceMap": true,
+    "noImplicitAny": true,
+    "strict": true,
+    "isolatedModules": true,
+    "esModuleInterop": true,
+    "allowJs": false,
+    "noImplicitReturns": true,
+    "strictNullChecks": true,
+    "skipLibCheck": true
+  }
+}

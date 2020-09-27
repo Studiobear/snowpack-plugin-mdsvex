@@ -2,7 +2,61 @@
   "name": "@studiobear/snowpack-plugin-mdsvex",
   "version": "0.0.1",
   "description": "Svelte-friendly MD file via MDSVEX with Snowpack",
-  "main": "src/index.ts",
+  "source": "src/index.ts",
+  "main": "dist/index.js",
+  "module": "dist/index.modern.js",
+  "umd:main": "dist/index.umd.js",
+  "types": "dist/index.d.ts",
   "author": "Barry Low <barry@studiobear.co>",
-  "license": "MIT"
+  "license": "MIT",
+  "scripts": {
+    "build": "NODE_ENV=production yarn test && yarn validate && yarn clean && yarn microbundle --compress && yarn bundlesize",
+    "dev": "NODE_ENV=development yarn microbundle watch",
+    "clean": "rm -rf dist",
+    "prepublishOnly": "yarn build",
+    "bundlesize": "bundlesize",
+    "lint": "prettier --check 'src/**/*.{ts,js}'",
+    "lint:fix": "prettier --write 'src/**/*.{ts,js}'",
+    "test": "jest src",
+    "test:watch": "yarn test --watch",
+    "validate": "tsc --noEmit"
+  },
+  "bundlesize": [
+    {
+      "path": "./dist/index.js",
+      "maxSize": "10 Kb",
+      "compression": "brotli"
+    }
+  ],
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "**/*.{js,ts,json,md}": [
+      "prettier --write",
+      "git add"
+    ]
+  },
+  "peerDependencies": {
+    "mdsvex": "^0.8.8",
+    "snowpack": "^2.11.1",
+    "svelte": "^3.28.0"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.11.6",
+    "@babel/preset-env": "^7.11.5",
+    "@types/jest": "^26.0.14",
+    "babel-jest": "^26.3.0",
+    "bundlesize": "^0.18.0",
+    "husky": "^4.3.0",
+    "jest": "^26.4.2",
+    "lint-staged": "^10.4.0",
+    "microbundle": "^0.12.3",
+    "prettier": "^2.1.2",
+    "prettier-plugin-svelte": "^1.4.0",
+    "ts-jest": "^26.4.0",
+    "typescript": "^4.0.3"
+  }
 }
