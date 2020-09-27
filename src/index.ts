@@ -11,7 +11,6 @@ module.exports = function plugin(
   pluginOptions: SnowpackPluginMdsvexOptions,
 ) {
   const filter = createFilter(pluginOptions.include, pluginOptions.exclude)
-  let extOpts = pluginOptions.mdsvexOptions?.extensions ?? extensionsDefault
 
   return {
     name: 'snowpack-plugin-mdsvex',

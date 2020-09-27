@@ -10,7 +10,7 @@
   "author": "Barry Low <barry@studiobear.co>",
   "license": "MIT",
   "scripts": {
-    "build": "NODE_ENV=production yarn test && yarn validate && yarn clean && yarn microbundle --compress && yarn bundlesize",
+    "build": "NODE_ENV=production yarn test && yarn validate && yarn clean && yarn microbundle && yarn bundlesize",
     "dev": "NODE_ENV=development yarn microbundle watch",
     "clean": "rm -rf dist",
     "prepublishOnly": "yarn build",
