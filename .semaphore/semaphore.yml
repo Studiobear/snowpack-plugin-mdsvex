@@ -1,0 +1,25 @@
+version: v1.0
+name: Snowpack-Plugin-MDSVEX Test
+agent:
+  machine:
+    type: e1-standard-2
+    os_image: ubuntu1804
+blocks:
+  - name: Test  & Build
+    task:
+      jobs:
+        - name: Test
+          commands:
+            - checkout
+            - sem-version node 12
+            - cache restore
+            - yarn install
+            - yarn global add codecov
+            - yarn add svelte mdsevx snowpack -D
+            - cache store
+            - yarn build
+            - codecov -t "$CODE_COV_TOKEN"
+      secrets:
+        - name: snowpack-plugin-mdsvex
+    skip:
+      when: branch != 'master'
