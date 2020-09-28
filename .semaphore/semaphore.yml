@@ -15,7 +15,7 @@ blocks:
             - cache restore
             - yarn install
             - yarn global add codecov
-            - yarn add svelte mdsevx snowpack -D
+            - yarn add svelte mdsvex snowpack -D
             - cache store
             - yarn build
             - codecov -t "$CODE_COV_TOKEN"
