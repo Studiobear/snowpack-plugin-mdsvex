@@ -18,6 +18,6 @@ blocks:
             - yarn add svelte mdsvex snowpack -D
             - cache store
             - yarn build
-            - codecov -t "$CODE_COV_TOKEN"
+            - codecov
       secrets:
         - name: snowpack-plugin-mdsvex
