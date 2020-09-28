@@ -69,4 +69,21 @@ describe('snowpack-plugin-mdx', () => {
     const result = await plugin.load({ contents, filePath })
     expect(result).toBeNull()
   })
+
+  it('should render embedded Svelte component', async () => {
+    const filePath = path.join(__dirname, '__fixtures__/counter.svx')
+    const contents = await fs.readFile(filePath, 'utf-8')
+    const plugin = snowpackPluginMdsvex(
+      {},
+      {
+        include: ['**/*.svx'],
+        babelOptions: {
+          babelrc: false,
+          presets: ['@babel/env', '@babel/react'],
+        },
+      },
+    )
+    const result = await plugin.load({ contents, filePath })
+    expect(result['.js']).toMatchSnapshot('.js')
+  })
 })

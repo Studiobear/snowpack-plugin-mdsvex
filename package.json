@@ -24,7 +24,7 @@
   "bundlesize": [
     {
       "path": "./dist/index.js",
-      "maxSize": "10 Kb",
+      "maxSize": "7.5 Kb",
       "compression": "brotli"
     }
   ],

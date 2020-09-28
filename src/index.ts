@@ -10,7 +10,9 @@ module.exports = function plugin(
   _: any,
   pluginOptions: SnowpackPluginMdsvexOptions,
 ) {
-  const filter = createFilter(pluginOptions.include, pluginOptions.exclude)
+  let filter: any
+  if (pluginOptions.include || pluginOptions.exclude)
+    filter = createFilter(pluginOptions.include, pluginOptions.exclude)
 
   return {
     name: 'snowpack-plugin-mdsvex',
@@ -19,7 +21,10 @@ module.exports = function plugin(
       output: ['.js'],
     },
     async load({ filePath }: { filePath: string }) {
-      if (!ext.test(filePath) || !filter(filePath)) {
+      if (
+        !ext.test(filePath) ||
+        (typeof filter === 'function' && !filter(filePath))
+      ) {
         return null
       }
       const contents = await fs.readFile(filePath, 'utf-8')
