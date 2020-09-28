@@ -22,4 +22,4 @@ blocks:
       secrets:
         - name: snowpack-plugin-mdsvex
     skip:
-      when: branch != 'master'
+      when: branch != 'master' || branch != 'develop'
