@@ -21,5 +21,3 @@ blocks:
             - codecov -t "$CODE_COV_TOKEN"
       secrets:
         - name: snowpack-plugin-mdsvex
-    skip:
-      when: branch != 'master' || branch != 'develop'
