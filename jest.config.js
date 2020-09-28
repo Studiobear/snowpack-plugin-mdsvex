@@ -8,4 +8,6 @@ module.exports = {
   testRegex: '(/__tests__/.*\\.test)\\.([tj]s)$',
   testPathIgnorePatterns: ['node_modules', '__fixtures__'],
   setupFilesAfterEnv: ['./test/setup.js'],
+  collectCoverageFrom: ['./src/index.ts'],
+  coverageDirectory: './coverage/',
 }
