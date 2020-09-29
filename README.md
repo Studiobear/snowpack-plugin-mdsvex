@@ -1,9 +1,9 @@
-<hr>
+<hr />
 <div>
   <h1>
     snowpack-plugin-mdsvex
   </h1>
-  <blockquote>Use Markdown enhanced with Svelte components using <a href="https://mdsvex.com/">MDSVEX</a> to build <code>.md</code> and <code>.svx</code> files with <a href="https://www.snowpack.dev/">Snowpack</a>!</blockquote>
+  <blockquote>Use Markdown enhanced with Svelte components compiled by <a href="https://mdsvex.com/">MDSVEX</a> to parse <code>.md</code> and <code>.svx</code> files with <a href="https://www.snowpack.dev/">Snowpack</a>!</blockquote>
 </div>
 <div>
 &nbsp;
@@ -16,10 +16,15 @@
 </p>
 &nbsp;
 </div>
-<hr>
+<hr />
 
-<p>This plugin was created to be used within a Svelte project, but could possbily be used in a non-Svelte app since this plugin parses `.md` and `.svx` files into JS externally of the main Svelte preprocessor loop used in [@snowpack/plugin-svelte](https://github.com/pikapkg/snowpack/tree/master/plugins/plugin-svelte).</p>
-  <pre>yarn add snowpack-plugin-mdx -D </pre>
+This plugin was created to be used within a Svelte project, but could possbily be used in a non-Svelte app since this plugin parses `.md` and `.svx` files into JS externally of the main Svelte preprocessor loop used in [@snowpack/plugin-svelte](https://github.com/pikapkg/snowpack/tree/master/plugins/plugin-svelte).
+
+```bash
+yarn add snowpack-plugin-mdx -D
+# or
+npm i snowpack-plugin-mdx --dev -D
+```
 
 Peer dependencies: `svelte`, `snowpack`, `mdsvex`.
 
@@ -61,6 +66,8 @@ interface SnowpackPluginMdsvexOptions {
 #### Supported MDSVEX options:
 
 - [TODO]: Technically all options except for 'extensions' (currently, only `.md` and `.svx`) should work, but have not been tested. [View all MDSVEX options](https://mdsvex.com/docs#options)
+
+<hr />
 
 ### Acknowledgements
 
