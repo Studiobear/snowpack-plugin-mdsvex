@@ -9,14 +9,14 @@
   <p><em>Peer dependencies:</em> `svelte`, `snowpack`, `mdsvex`.</p>
 
 </div>
-[![Build Status](https://studiobear.semaphoreci.com/badges/snowpack-plugin-mdsvex/branches/master.svg?style=shields)](https://studiobear.semaphoreci.com/projects/snowpack-plugin-mdsvex)
 <p>
   <a aria-label="Types" href="https://www.npmjs.com/package/snowpack-plugin-mdsvex">
     <img alt="Types" src="https://img.shields.io/npm/types/snowpack-plugin-mdsvex?style=flat&labelColor=24292e">
   </a>
   <a aria-label="Code coverage report" href="https://codecov.io/gh/Studiobear/snowpack-plugin-mdsvex">
-    <img alt="Code coverage" src="https://img.shields.io/codecov/c/gh/Studiobear/snowpack-plugin-mdsvex?style=flat&labelColor=24292e">
+    <img alt="Codecov" src="https://img.shields.io/codecov/c/github/Studiobear/snowpack-plugin-mdsvex">
   </a>
+  
   <a href='https://studiobear.semaphoreci.com/badges/snowpack-plugin-mdsvex/branches/master.svg?style=shields'> <img src='https://studiobear.semaphoreci.com/badges/snowpack-plugin-mdsvex/branches/master.svg?style=shields' alt='Build Status'></a>
   <a aria-label="NPM version" href="https://www.npmjs.com/package/snowpack-plugin-mdsvex">
     <img alt="NPM Version" src="https://img.shields.io/npm/v/snowpack-plugin-mdsvex?style=flat&labelColor=24292e">
@@ -61,7 +61,7 @@ interface SnowpackPluginMdsvexOptions {
 
 ### Acknowledgements
 
-- Guided by [snowpack-plugin-mdx](https://github.com/jaredLunde/snowpack-plugin-mdx)
+- Guided by [snowpack-plugin-mdx]()
 
 ## LICENSE
 
