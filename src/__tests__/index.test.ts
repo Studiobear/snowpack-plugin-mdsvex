@@ -100,4 +100,44 @@ describe('snowpack-plugin-mdx', () => {
     const result = await plugin.load({ contents, filePath })
     expect(result['.js']).toMatchSnapshot('.js')
   })
+
+  it('should output CSS from embedded Svelte component', async () => {
+    const filePath = path.join(__dirname, '__fixtures__/css.svx')
+    const contents = await fs.readFile(filePath, 'utf-8')
+    const plugin = snowpackPluginMdsvex(
+      {},
+      {
+        include: ['**/*.svx'],
+        css: true,
+      },
+    )
+    const result = await plugin.load({ contents, filePath })
+    expect(result['.css']).toMatchSnapshot('.css')
+  })
+
+  it('should output CSS from embedded Svelte component', async () => {
+    const filePath = path.join(__dirname, '__fixtures__/css.svx')
+    const contents = await fs.readFile(filePath, 'utf-8')
+    const plugin = snowpackPluginMdsvex(
+      {},
+      {
+        include: ['**/*.svx'],
+        css: true,
+      },
+    )
+    const result = await plugin.load({ contents, filePath })
+    expect(result['.css']).toMatchSnapshot('.css')
+  })
+  it('should not output CSS if option not set to true', async () => {
+    const filePath = path.join(__dirname, '__fixtures__/css.svx')
+    const contents = await fs.readFile(filePath, 'utf-8')
+    const plugin = snowpackPluginMdsvex(
+      {},
+      {
+        include: ['**/*.svx'],
+      },
+    )
+    const result = await plugin.load({ contents, filePath })
+    expect(result['.css']).toBe(undefined)
+  })
 })
