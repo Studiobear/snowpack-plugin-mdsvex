@@ -57,6 +57,10 @@ interface SnowpackPluginMdsvexOptions {
    */
   exclude?: string[]
   /**
+   * Include CSS. Default: false
+   */
+  css?: boolean
+  /**
    * These options are passed directly to the MDSvex compiler
    */
   mdsvexOptions?: Record<string, any>
