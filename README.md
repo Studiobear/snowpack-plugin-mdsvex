@@ -3,7 +3,7 @@
   <h1>
     snowpack-plugin-mdsvex
   </h1>
-  <blockquote>Use Markdown enhanced with Svelte components compiled by <a href="https://mdsvex.com/">MDSVEX</a> to parse <code>.md</code> and <code>.svx</code> files with <a href="https://www.snowpack.dev/">Snowpack</a>!</blockquote>
+  <blockquote>Use Markdown enhanced with Svelte components compiled by <a href="https://mdsvex.com/">MDSvex</a> to parse <code>.md</code> and <code>.svx</code> files with <a href="https://www.snowpack.dev/">Snowpack</a>!</blockquote>
 </div>
 <div>
 &nbsp;
@@ -57,15 +57,25 @@ interface SnowpackPluginMdsvexOptions {
    */
   exclude?: string[]
   /**
-   * These options are passed directly to the MDSVEX compiler
+   * These options are passed directly to the MDSvex compiler
    */
   mdsvexOptions?: Record<string, any>
 }
 ```
 
-#### Supported MDSVEX options:
+#### Supported MDSvex options:
 
-- [TODO]: Technically all options except for 'extensions' (currently, only `.md` and `.svx`) should work, but have not been tested. [View all MDSVEX options](https://mdsvex.com/docs#options)
+```typescript
+interface MdsvexOptions {
+  /**
+   * Use custom extensions
+   * example: ['.dvx']
+   */
+  extensions?: string[]
+}
+```
+
+- [TODO]: [View all MDSvex options](https://mdsvex.com/docs#options). With exception to custom extensions, all other MDSvex options have not been tested, but should work.
 
 <hr />
 

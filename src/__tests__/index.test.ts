@@ -6,10 +6,7 @@ describe('snowpack-plugin-mdx', () => {
   it('should compile .md files', async () => {
     const filePath = path.join(__dirname, '__fixtures__/hello-svelte.md')
     const contents = await fs.readFile(filePath, 'utf-8')
-    const plugin = snowpackPluginMdsvex(
-      {},
-      { babelOptions: { babelrc: false, presets: ['@babel/env'] } },
-    )
+    const plugin = snowpackPluginMdsvex({}, {})
     const result = await plugin.load({ contents, filePath })
     expect(result['.js']).toMatchSnapshot('.js')
   })
@@ -17,9 +14,35 @@ describe('snowpack-plugin-mdx', () => {
   it('should compile .svx files', async () => {
     const filePath = path.join(__dirname, '__fixtures__/hello-svelte.svx')
     const contents = await fs.readFile(filePath, 'utf-8')
+    const plugin = snowpackPluginMdsvex({}, {})
+    const result = await plugin.load({ contents, filePath })
+    expect(result['.js']).toMatchSnapshot('.js')
+  })
+
+  it('should resolve extensions to custom extension .dvx', async () => {
     const plugin = snowpackPluginMdsvex(
       {},
-      { babelOptions: { babelrc: false, presets: ['@babel/env'] } },
+      {
+        mdsvexOptions: {
+          extensions: ['.dvx'],
+        },
+      },
+    )
+    const result = plugin.resolve.input
+    expect(result[0]).toBe('.dvx')
+  })
+
+  it('should compile custom extension file .dvx', async () => {
+    const filePath = path.join(__dirname, '__fixtures__/hello-svelte.dvx')
+    const contents = await fs.readFile(filePath, 'utf-8')
+    const plugin = snowpackPluginMdsvex(
+      {},
+      {
+        include: ['**/*.dvx'],
+        mdsvexOptions: {
+          extensions: ['.dvx'],
+        },
+      },
     )
     const result = await plugin.load({ contents, filePath })
     expect(result['.js']).toMatchSnapshot('.js')
@@ -46,7 +69,6 @@ describe('snowpack-plugin-mdx', () => {
       {},
       {
         exclude: ['**/*.md'],
-        babelOptions: { babelrc: false, presets: ['@babel/env'] },
       },
     )
     const result = await plugin.load({ contents, filePath })
@@ -60,10 +82,6 @@ describe('snowpack-plugin-mdx', () => {
       {},
       {
         include: ['**/*.svx'],
-        babelOptions: {
-          babelrc: false,
-          presets: ['@babel/env', '@babel/react'],
-        },
       },
     )
     const result = await plugin.load({ contents, filePath })
@@ -77,10 +95,6 @@ describe('snowpack-plugin-mdx', () => {
       {},
       {
         include: ['**/*.svx'],
-        babelOptions: {
-          babelrc: false,
-          presets: ['@babel/env', '@babel/react'],
-        },
       },
     )
     const result = await plugin.load({ contents, filePath })
