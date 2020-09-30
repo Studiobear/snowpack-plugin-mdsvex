@@ -13,6 +13,7 @@ module.exports = function plugin(
   let filter: any
   let extensions: string[]
   let extRegexp: RegExp
+  let emitCSS: boolean = false
 
   if (pluginOptions.mdsvexOptions && pluginOptions.mdsvexOptions.extensions) {
     extensions = pluginOptions.mdsvexOptions.extensions
@@ -32,11 +33,13 @@ module.exports = function plugin(
   if (pluginOptions.include || pluginOptions.exclude)
     filter = createFilter(pluginOptions.include, pluginOptions.exclude)
 
+  if (pluginOptions.css) emitCSS = pluginOptions.css
+
   return {
     name: 'snowpack-plugin-mdsvex',
     resolve: {
       input: extensions,
-      output: ['.js'],
+      output: ['.js', '.css'],
     },
     async load({ filePath }: { filePath: string }) {
       if (
@@ -55,11 +58,19 @@ module.exports = function plugin(
         }),
         { filename: filePath },
       )
-      const { js } = await compile(svxPreprocess.toString())
-
-      return {
-        '.js': js && js.code,
+      const { js, css } = await compile(svxPreprocess.toString())
+      const output: any = {
+        '.js': {
+          code: js.code,
+        },
       }
+      if (emitCSS && css && css.code) {
+        output['.css'] = {
+          code: css.code,
+        }
+      }
+
+      return output
     },
   }
 }
@@ -73,6 +84,10 @@ export interface SnowpackPluginMdsvexOptions {
    * Excludes the specified paths
    */
   exclude?: string[]
+  /**
+   * Include CSS. Default: false
+   */
+  css?: boolean
   /**
    * These options are passed directly to the MDSVEX compiler.
    */
