@@ -1,0 +1,16 @@
+<script>
+	import { CounterCSS } from "./CounterCSS.svelte";
+</script> 
+
+<style>
+  .container {
+    padding: 1em;
+    border: 1px solid #999;
+  }
+</style>
+
+# SVX with counter!
+
+<div class="container">
+  <CounterCSS />
+</div>
