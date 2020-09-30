@@ -1,6 +1,6 @@
 {
   "name": "snowpack-plugin-mdsvex",
-  "version": "0.1.2",
+  "version": "0.2.0",
   "homepage": "https://github.com/Studiobear/snowpack-plugin-mdsvex#readme",
   "repository": "github:Studiobear/snowpack-plugin-mdsvex",
   "description": "Include Svelte-enhanced markdown files via MDSVEX with Snowpack",
