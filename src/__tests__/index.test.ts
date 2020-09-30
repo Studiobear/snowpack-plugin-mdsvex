@@ -45,7 +45,6 @@ describe('snowpack-plugin-mdx', () => {
       },
     )
     const result = await plugin.load({ contents, filePath })
-    console.log(result)
     expect(result['.js']).toMatchSnapshot('.js')
   })
 
