@@ -4,6 +4,8 @@
     snowpack-plugin-mdsvex
   </h1>
   <blockquote>Use Markdown enhanced with Svelte components compiled by <a href="https://mdsvex.com/">MDSvex</a> to parse <code>.md</code> and <code>.svx</code> files with <a href="https://www.snowpack.dev/">Snowpack</a>!</blockquote>
+
+  <h3><strong>Deprecation Notice:</strong> <em>This plugin is no longer needed.</em> Snowpack's plugin-svelte now allows preprocessing option pass through therefore allowing svelte-preprocess and other preprocessors, like MDSvex, to be passed in via plugin options. </h3>
 </div>
 <div>
 &nbsp;

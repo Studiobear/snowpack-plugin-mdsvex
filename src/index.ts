@@ -1,19 +1,22 @@
-import { promises as fs } from 'fs'
-import { createFilter } from '@rollup/pluginutils'
-import { preprocess, compile } from 'svelte/compiler'
-import { mdsvex } from 'mdsvex'
+const svelteRollupPlugin = require('rollup-plugin-svelte')
+const fs = require('fs/promises')
+const utils = require('@rollup/pluginutils')
+const svelte = require('svelte/compiler')
+const { mdsvex } = require('mdsvex')
 
 const ext = /(\.md$|\.svx$)/
 const extensionsDefault = ['.md', '.svx']
 
 module.exports = function plugin(
-  _: any,
+  snowpackConfig: any,
   pluginOptions: SnowpackPluginMdsvexOptions,
 ) {
+  const isDev = process.env.NODE_ENV !== 'production'
+  const emitCss = pluginOptions.css ? pluginOptions.css : false
+
   let filter: any
   let extensions: string[]
   let extRegexp: RegExp
-  let emitCSS: boolean = false
 
   if (pluginOptions.mdsvexOptions && pluginOptions.mdsvexOptions.extensions) {
     extensions = pluginOptions.mdsvexOptions.extensions
@@ -31,9 +34,22 @@ module.exports = function plugin(
   }
 
   if (pluginOptions.include || pluginOptions.exclude)
-    filter = createFilter(pluginOptions.include, pluginOptions.exclude)
+    filter = utils.createFilter(pluginOptions.include, pluginOptions.exclude)
 
-  if (pluginOptions.css) emitCSS = pluginOptions.css
+  if (
+    snowpackConfig &&
+    snowpackConfig.installOptions &&
+    snowpackConfig.installOptions.rollup &&
+    snowpackConfig.installOptions.rollup.plugins
+  ) {
+    snowpackConfig.installOptions.rollup.plugins.push(
+      svelteRollupPlugin({
+        extensions: ['.svelte', ...extensions],
+        emitCss,
+        preprocess: mdsvex({ ...pluginOptions.mdsvexOptions, dev: isDev }),
+      }),
+    )
+  }
 
   return {
     name: 'snowpack-plugin-mdsvex',
@@ -41,6 +57,7 @@ module.exports = function plugin(
       input: extensions,
       output: ['.js', '.css'],
     },
+    knownEntrypoints: ['svelte/internal'],
     async load({ filePath }: { filePath: string }) {
       if (
         !extRegexp.test(filePath) ||
@@ -51,20 +68,20 @@ module.exports = function plugin(
 
       const contents = await fs.readFile(filePath, 'utf-8')
 
-      const svxPreprocess = await preprocess(
+      const svxPreprocess = await svelte.preprocess(
         contents,
         mdsvex({
           ...pluginOptions.mdsvexOptions,
         }),
         { filename: filePath },
       )
-      const { js, css } = await compile(svxPreprocess.toString())
+      const { js, css } = await svelte.compile(svxPreprocess.toString())
       const output: any = {
         '.js': {
           code: js.code,
         },
       }
-      if (emitCSS && css && css.code) {
+      if (emitCss && css && css.code) {
         output['.css'] = {
           code: css.code,
         }
