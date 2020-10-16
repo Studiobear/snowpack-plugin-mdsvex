@@ -4,8 +4,6 @@
     snowpack-plugin-mdsvex
   </h1>
   <blockquote>Use Markdown enhanced with Svelte components compiled by <a href="https://mdsvex.com/">MDSvex</a> to parse <code>.md</code> and <code>.svx</code> files with <a href="https://www.snowpack.dev/">Snowpack</a>!</blockquote>
-
-  <h3><strong>Deprecation Notice:</strong> <em>This plugin is no longer needed.</em> Snowpack's plugin-svelte now allows preprocessing option pass through therefore allowing svelte-preprocess and other preprocessors, like MDSvex, to be passed in via plugin options. </h3>
 </div>
 <div>
 &nbsp;
@@ -22,10 +20,12 @@
 
 This plugin was created to be used within a Svelte project, but could possbily be used in a non-Svelte app since this plugin parses `.md` and `.svx` files into JS externally of the main Svelte preprocessor loop used in [@snowpack/plugin-svelte](https://github.com/pikapkg/snowpack/tree/master/plugins/plugin-svelte).
 
+**Note**: The plugin was archived at one point when the `preprocessor` option was added to `@snowpack/plugin-svelte`, however since a Snowpack plugin's `resolve.input` doesn't allow dyanmic input it was not possible to make Snowpack aware of extensions beyond `.svelte`.
+
 ```bash
-yarn add snowpack-plugin-mdx -D
+yarn add snowpack-plugin-mdsvex -D
 # or
-npm i snowpack-plugin-mdx --dev -D
+npm i snowpack-plugin-mdsvex --dev -D
 ```
 
 Peer dependencies: `svelte`, `snowpack`, `mdsvex`.
@@ -42,7 +42,11 @@ Otherwise, after installing, update your snowpack config:
 ```js
 // snowpack.config.json
 {
-  "plugins": [["snowpack-plugin-mdsvex", { /* see "Plugin Options" below */ }]]
+  "plugins": [
+    ...
+    ["snowpack-plugin-mdsvex", { /* see "Plugin Options" below */ }],
+    ...
+  ]
 }
 ```
 
@@ -81,6 +85,7 @@ interface MdsvexOptions {
 }
 ```
 
+- `extensions`: Set if you wish to use any custom extensions. Defaults: `['.md', '.svx']`.
 - [TODO]: [View all MDSvex options](https://mdsvex.com/docs#options). With exception to custom extensions, all other MDSvex options have not been tested, but should work.
 
 <hr />

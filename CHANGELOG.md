@@ -4,6 +4,8 @@ All notable changes to this project will be documented in this file. See [standa
 
 ### [0.2.2](https://github.com/Studiobear/snowpack-plugin-mdsvex/compare/v0.2.1...v0.2.2) (2020-10-16)
 
+**PLUGIN UNARCHIVED**: Archived when the `preprocessor` option was added to `@snowpack/plugin-svelte`, however since a Snowpack plugin's `resolve.input` doesn't allow dyanmic input it was not possible to make Snowpack aware of extensions beyond `.svelte`.
+
 ### [0.2.1](https://github.com/Studiobear/snowpack-plugin-mdsvex/compare/v0.2.0...v0.2.1) (2020-10-12)
 
 ~~**PLUGIN DEPRECATED**: Snowpack's plugin-svelte now allows preprocessing option pass through therefore allowing svelte-preprocess and other preprocessors, like MDSvex, to be passed in via plugin options.~~
