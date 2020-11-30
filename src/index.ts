@@ -46,7 +46,7 @@ module.exports = function plugin(
       svelteRollupPlugin({
         extensions: ['.svelte', ...extensions],
         emitCss,
-        preprocess: mdsvex({ ...pluginOptions.mdsvexOptions, dev: isDev }),
+        preprocess: mdsvex({ ...pluginOptions.mdsvexOptions }),
       }),
     )
   }
