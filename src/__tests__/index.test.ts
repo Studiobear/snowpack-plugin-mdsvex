@@ -140,4 +140,17 @@ describe('snowpack-plugin-mdx', () => {
     const result = await plugin.load({ contents, filePath })
     expect(result['.css']).toBe(undefined)
   })
+  it('should optionally only preprocess files', async () => {
+    const filePath = path.join(__dirname, '__fixtures__/counter.svx')
+    const contents = await fs.readFile(filePath, 'utf-8')
+    const plugin = snowpackPluginMdsvex(
+      {},
+      {
+        include: ['**/*.svx'],
+        compile: false,
+      },
+    )
+    const result = await plugin.load({ contents, filePath })
+    expect(result['.js']).toMatchSnapshot('.js')
+  })
 })

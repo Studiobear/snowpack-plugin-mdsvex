@@ -1,4 +1,3 @@
-const svelteRollupPlugin = require('rollup-plugin-svelte')
 const fs = require('fs/promises')
 const utils = require('@rollup/pluginutils')
 const svelte = require('svelte/compiler')
@@ -11,8 +10,8 @@ module.exports = function plugin(
   snowpackConfig: any,
   pluginOptions: SnowpackPluginMdsvexOptions,
 ) {
-  const isDev = process.env.NODE_ENV !== 'production'
   const emitCss = pluginOptions.css ? pluginOptions.css : false
+  const compile = pluginOptions.compile === false ? pluginOptions.compile : true
 
   let filter: any
   let extensions: string[]
@@ -35,21 +34,6 @@ module.exports = function plugin(
 
   if (pluginOptions.include || pluginOptions.exclude)
     filter = utils.createFilter(pluginOptions.include, pluginOptions.exclude)
-
-  if (
-    snowpackConfig &&
-    snowpackConfig.installOptions &&
-    snowpackConfig.installOptions.rollup &&
-    snowpackConfig.installOptions.rollup.plugins
-  ) {
-    snowpackConfig.installOptions.rollup.plugins.push(
-      svelteRollupPlugin({
-        extensions: ['.svelte', ...extensions],
-        emitCss,
-        preprocess: mdsvex({ ...pluginOptions.mdsvexOptions }),
-      }),
-    )
-  }
 
   return {
     name: 'snowpack-plugin-mdsvex',
@@ -75,15 +59,20 @@ module.exports = function plugin(
         }),
         { filename: filePath },
       )
-      const { js, css } = await svelte.compile(svxPreprocess.toString())
+
+      // Default compile svelte or preprocess only
+      const code = compile
+        ? await svelte.compile(svxPreprocess.toString())
+        : svxPreprocess.toString()
+
       const output: any = {
         '.js': {
-          code: js.code,
+          code: compile ? code.js.code : code,
         },
       }
-      if (emitCss && css && css.code) {
+      if (emitCss && code && code.css && code.css.code) {
         output['.css'] = {
-          code: css.code,
+          code: code.css.code,
         }
       }
 
@@ -102,11 +91,15 @@ export interface SnowpackPluginMdsvexOptions {
    */
   exclude?: string[]
   /**
-   * Include CSS. Default: false
+   * CSS included. Default: false
    */
   css?: boolean
   /**
-   * These options are passed directly to the MDSVEX compiler.
+   * Compile or preprocess only. Default: true
+   */
+  compile?: boolean
+  /**
+   * Options passed directly to the MDSVEX compiler. Default: true
    */
   mdsvexOptions?: Record<string, any>
 }

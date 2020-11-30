@@ -151,6 +151,19 @@ export default Component;",
 }
 `;
 
+exports[`snowpack-plugin-mdx should optionally only preprocess files: .js 1`] = `
+Object {
+  "code": "<script>
+	import { Counter } from \\"./Counter.svelte\\";
+</script>
+
+
+<h1>SVX with counter!</h1>
+<Counter />
+",
+}
+`;
+
 exports[`snowpack-plugin-mdx should output CSS from embedded Svelte component: .css 1`] = `
 Object {
   "code": ".container.svelte-nuklxc{padding:1em;border:1px solid #999}",
